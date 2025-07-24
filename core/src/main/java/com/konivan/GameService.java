@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.konivan.systems.CameraSystem;
+import com.konivan.systems.GameRender;
 
 import java.util.Objects;
 
@@ -23,69 +24,52 @@ import lombok.Getter;
 @Getter
 public class GameService {
 
-    private final AssetManager assetManager;
+	private final AssetManager assetManager;
 
-    private final SceneLoader sceneLoader;
+	private final SceneLoader sceneLoader;
 
-    private final AsyncResourceManager asyncResourceManager;
+	private final AsyncResourceManager asyncResourceManager;
 
-    private final World engine;
+	private final World engine;
 
-    private final ItemWrapper root;
+	private final ItemWrapper root;
 
-    private final CameraSystem cameraSystem;
+    private final GameRender render;
 
-    private final Camera camera;
+	private static GameService INSTANCE;
 
-    private final ExtendViewport viewport;
+	private GameService() {
+		assetManager = new AssetManager();
 
-    private float screenHeight;
+		ExternalTypesConfiguration externalItemTypes = new ExternalTypesConfiguration();
 
-    private float screenWidth;
-    private static GameService INSTANCE;
+		assetManager.setLoader(AsyncResourceManager.class,
+				new ResourceManagerLoader(externalItemTypes, assetManager.getFileHandleResolver()));
+		assetManager.load("project.dt", AsyncResourceManager.class);
+		assetManager.finishLoading();
 
-    private GameService() {
-        assetManager = new AssetManager();
+		asyncResourceManager = assetManager.get("project.dt", AsyncResourceManager.class);
+		SceneConfiguration config = new SceneConfiguration();
 
-        ExternalTypesConfiguration externalItemTypes = new ExternalTypesConfiguration();
+        render = new GameRender(config);
 
-        assetManager.setLoader(AsyncResourceManager.class,
-            new ResourceManagerLoader(externalItemTypes, assetManager.getFileHandleResolver()));
-        assetManager.load("project.dt", AsyncResourceManager.class);
-        assetManager.finishLoading();
+		config.setExternalItemTypes(externalItemTypes);
+		config.setResourceRetriever(asyncResourceManager);
 
-        asyncResourceManager = assetManager.get("project.dt", AsyncResourceManager.class);
-        SceneConfiguration config = new SceneConfiguration();
+		config.addSystem(new PhysicsSystem());
 
-        config.setExternalItemTypes(externalItemTypes);
-        config.setResourceRetriever(asyncResourceManager);
+		sceneLoader = new SceneLoader(config);
+		engine = sceneLoader.getEngine();
 
-        cameraSystem = new CameraSystem(0, 40, 0, 6);
-        config.addSystem(cameraSystem);
-        config.addSystem(new PhysicsSystem());
+		root = new ItemWrapper(sceneLoader.getRoot(), engine);
 
-        sceneLoader = new SceneLoader(config);
-        engine = sceneLoader.getEngine();
+	}
 
-        root = new ItemWrapper(sceneLoader.getRoot(), engine);
+	public static GameService getInstance() {
+		if (Objects.isNull(INSTANCE)) {
+			INSTANCE = new GameService();
+		}
 
-        if (Gdx.app.getType().equals(Application.ApplicationType.Desktop)) {
-            screenWidth = 500;
-            screenHeight = 2000;
-        } else {
-            screenWidth = Gdx.graphics.getWidth();
-            screenHeight = Gdx.graphics.getHeight();
-        }
-
-        camera = new OrthographicCamera(screenWidth, screenHeight);
-        viewport = new ExtendViewport(0, 5, camera);
-    }
-
-    public static GameService getInstance() {
-        if(Objects.isNull(INSTANCE)) {
-            INSTANCE = new GameService();
-        }
-
-        return INSTANCE;
-    }
+		return INSTANCE;
+	}
 }

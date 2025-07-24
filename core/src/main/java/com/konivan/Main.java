@@ -24,11 +24,11 @@ public class Main extends ApplicationAdapter {
     public void create() {
         gameService = GameService.getInstance();
 
-        gameService.getSceneLoader().loadScene("TestScene", gameService.getViewport());
+        gameService.getSceneLoader().loadScene("TestScene", gameService.getRender().getViewport());
 
         CameraFocusPoint cameraFocusPoint = new CameraFocusPoint();
         CharacterLoader.loadToScene(cameraFocusPoint, new Vector2(0f, 0f), "Default");
-        gameService.getCameraSystem().setFocus(cameraFocusPoint.getEntity());
+        gameService.getRender().getCameraSystem().setFocus(cameraFocusPoint.getEntity());
     }
 
     @Override
@@ -36,13 +36,13 @@ public class Main extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        gameService.getViewport().apply();
+        gameService.getRender().getViewport().apply();
         gameService.getEngine().process();
     }
 
     @Override
     public void resize(int width, int height) {
-        gameService.getViewport().update(width, height);
+        gameService.getRender().getViewport().update(width, height);
 
         if (width != 0 && height != 0)
             gameService.getSceneLoader().resize(width, height);
