@@ -13,6 +13,8 @@ import com.konivan.characters.CharacterLoader;
 
 import java.time.chrono.MinguoChronology;
 
+import games.rednblack.editor.renderer.utils.ItemWrapper;
+
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
@@ -26,8 +28,10 @@ public class Main extends ApplicationAdapter {
 
         gameService.getSceneLoader().loadScene("TestScene", gameService.getRender().getViewport());
 
-        CameraFocusPoint cameraFocusPoint = new CameraFocusPoint();
-        CharacterLoader.loadToScene(cameraFocusPoint, new Vector2(0f, 0f), "Default");
+        //CameraFocusPoint cameraFocusPoint = new CameraFocusPoint();
+        //CharacterLoader.loadToScene(cameraFocusPoint, new Vector2(0f, 0f), "Default");
+        ItemWrapper root = new ItemWrapper(gameService.getSceneLoader().getRoot(), gameService.getSceneLoader().getEngine());
+        ItemWrapper  cameraFocusPoint = root.getChild("camera-focus");
         gameService.getRender().getCameraSystem().setFocus(cameraFocusPoint.getEntity());
     }
 
