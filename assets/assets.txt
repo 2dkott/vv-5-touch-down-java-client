@@ -1,0 +1,8 @@
+libgdx.png
+mobile/pack.atlas
+mobile/pack.png
+orig/pack.atlas
+orig/pack.png
+project.dt
+scenes/MainScene.dt
+scenes/TestScene.dt
