@@ -1,22 +1,13 @@
 package com.konivan;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.konivan.characters.CameraFocusPoint;
-import com.konivan.characters.CharacterLoader;
-
-import java.time.chrono.MinguoChronology;
-
-import games.rednblack.editor.renderer.utils.ItemWrapper;
+import com.konivan.scenes.TestScene;
 
 /**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all
+ * platforms.
  */
 public class Main extends ApplicationAdapter {
 
@@ -25,14 +16,7 @@ public class Main extends ApplicationAdapter {
     @Override
     public void create() {
         gameService = GameService.getInstance();
-
-        gameService.getSceneLoader().loadScene("TestScene", gameService.getRender().getViewport());
-
-        //CameraFocusPoint cameraFocusPoint = new CameraFocusPoint();
-        //CharacterLoader.loadToScene(cameraFocusPoint, new Vector2(0f, 0f), "Default");
-        ItemWrapper root = new ItemWrapper(gameService.getSceneLoader().getRoot(), gameService.getSceneLoader().getEngine());
-        ItemWrapper  cameraFocusPoint = root.getChild("camera-focus");
-        gameService.getRender().getCameraSystem().setFocus(cameraFocusPoint.getEntity());
+        new TestScene();
     }
 
     @Override
@@ -48,8 +32,7 @@ public class Main extends ApplicationAdapter {
     public void resize(int width, int height) {
         gameService.getRender().getViewport().update(width, height);
 
-        if (width != 0 && height != 0)
-            gameService.getSceneLoader().resize(width, height);
+        if (width != 0 && height != 0) gameService.getSceneLoader().resize(width, height);
     }
 
     @Override
