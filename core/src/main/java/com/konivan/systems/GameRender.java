@@ -14,9 +14,13 @@ import lombok.Getter;
 public class GameRender {
 
 	private final float screenHeight;
+
 	private final float screenWidth;
+
 	private final Camera camera;
+
 	private final Viewport viewport;
+
 	private final CameraSystem cameraSystem;
 
 	public GameRender(SceneConfiguration config) {
@@ -24,7 +28,8 @@ public class GameRender {
 		if (Gdx.app.getType().equals(Application.ApplicationType.Desktop)) {
 			screenWidth = 14;
 			screenHeight = 31;
-		} else {
+		}
+		else {
 			screenWidth = (float) Gdx.graphics.getWidth() / 100;
 			screenHeight = (float) Gdx.graphics.getHeight() / 100;
 		}

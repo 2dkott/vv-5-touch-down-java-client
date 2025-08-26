@@ -34,7 +34,7 @@ public class GameService {
 
 	private final ItemWrapper root;
 
-    private final GameRender render;
+	private final GameRender render;
 
 	private static GameService INSTANCE;
 
@@ -51,7 +51,7 @@ public class GameService {
 		asyncResourceManager = assetManager.get("project.dt", AsyncResourceManager.class);
 		SceneConfiguration config = new SceneConfiguration();
 
-        render = new GameRender(config);
+		render = new GameRender(config);
 
 		config.setExternalItemTypes(externalItemTypes);
 		config.setResourceRetriever(asyncResourceManager);
@@ -62,7 +62,6 @@ public class GameService {
 		engine = sceneLoader.getEngine();
 
 		root = new ItemWrapper(sceneLoader.getRoot(), engine);
-
 	}
 
 	public static GameService getInstance() {

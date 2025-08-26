@@ -31,7 +31,8 @@ public class CameraSystem extends IteratingSystem {
 	protected void process(int entity) {
 
 		if (!Objects.isNull(transformComponent)) {
-			mVector3.set(transformComponent.x+transformComponent.scaleX/2f, transformComponent.y+transformComponent.scaleY, 0);
+			mVector3.set(transformComponent.x + transformComponent.scaleX / 2f,
+					transformComponent.y + transformComponent.scaleY, 0);
 			camera.position.lerp(mVector3, 0.1f);
 		}
 	}
