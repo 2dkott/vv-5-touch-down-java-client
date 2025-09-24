@@ -9,20 +9,19 @@ import games.rednblack.editor.renderer.utils.ItemWrapper;
 import lombok.Getter;
 
 @Getter
-public class GameObject {
+public abstract class GameObject {
 
 	private ItemWrapper characterItem;
 	private int entity;
 	private final List<Class<? extends Component>> components = new ArrayList<>();
-	private final String name;
 
-	protected GameObject(String name) {
-		this.name = name;
-	}
-
-	public GameObject addItemWrapper(ItemWrapper characterItem) {
+	void baseSetup(ItemWrapper characterItem) {
 		this.characterItem = characterItem;
 		this.entity = characterItem.getEntity();
-		return this;
 	}
+
+    abstract public void setup(ItemWrapper characterItem);
+    abstract public String getName();
+
+
 }
