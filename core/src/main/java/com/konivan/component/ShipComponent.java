@@ -2,9 +2,10 @@ package com.konivan.component;
 
 import com.artemis.PooledComponent;
 
-public class MainShipComponent extends PooledComponent {
+public class ShipComponent extends PooledComponent {
 
 	@Override
-	public void reset() {
+	protected void reset() {
+
 	}
 }

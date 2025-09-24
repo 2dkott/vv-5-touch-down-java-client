@@ -1,14 +1,22 @@
 package com.konivan.game_objects;
 
 import com.konivan.component.MainShipComponent;
+import com.konivan.scripts.ShipMovement;
+import games.rednblack.editor.renderer.utils.ItemWrapper;
 
 public class MainShipObject extends GameObject {
 
-	private static final String NAME = "main-ship-object";
+    @Override
+    public void setup(ItemWrapper characterItem) {
+        baseSetup(characterItem);
+        getComponents().add(MainShipComponent.class);
+        getCharacterItem().addScript(ShipMovement.class);
+    }
 
-	public MainShipObject() {
-		super(NAME);
-		getComponents().add(MainShipComponent.class);
-	}
+    @Override
+    public String getName() {
+        return "main-ship-object";
+    }
+
 
 }

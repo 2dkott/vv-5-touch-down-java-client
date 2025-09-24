@@ -7,6 +7,10 @@ import com.konivan.game_objects.GameObject;
 import games.rednblack.editor.renderer.utils.ItemWrapper;
 import lombok.Getter;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class BaseScene {
 	protected static final GameService gameService = GameService.getInstance();
 
@@ -18,15 +22,36 @@ public class BaseScene {
 		root = new ItemWrapper(gameService.getSceneLoader().getRoot(), gameService.getSceneLoader().getEngine());
 	}
 
-	public GameObject loadToScene(GameObject gameObject, Vector2 position, String layer) {
-		int entity = gameService.getSceneLoader().loadFromLibrary(gameObject.getName(), layer, position.x, position.y);
-		ItemWrapper characterItem = new ItemWrapper(entity, gameService.getEngine());
-		return gameObject.addItemWrapper(characterItem);
+	public <T extends GameObject> T loadToScene(Class<T> gameObjectClass, Vector2 position, String layer) {
+        try {
+            Constructor<T> constructor = gameObjectClass.getConstructor();
+            T gameObject = constructor.newInstance();
+            int entity = gameService.getSceneLoader().loadFromLibrary(gameObject.getName(), layer, position.x, position.y);
+            if (entity < 1) {
+                gameObject = null;
+            } else {
+                ItemWrapper characterItem = new ItemWrapper(entity, gameService.getEngine());
+                gameObject.setup(characterItem);
+            }
+            return gameObject;
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            return null;
+        }
 	}
 
-	public GameObject findInScene(GameObject gameObject) {
-		ItemWrapper characterItem = root.getChild(gameObject.getName());
-		return gameObject.addItemWrapper(characterItem);
-	}
-
+	public <T extends GameObject> T findInScene(Class<T> gameObjectClass) {
+        try {
+            Constructor<T> constructor = gameObjectClass.getConstructor();
+            T gameObject = constructor.newInstance();
+            ItemWrapper characterItem = root.getChild(gameObject.getName());
+            if (characterItem.getEntity() < 1) {
+                gameObject = null;
+            } else {
+                gameObject.setup(characterItem);
+            }
+            return gameObject;
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            return null;
+        }
+    }
 }
