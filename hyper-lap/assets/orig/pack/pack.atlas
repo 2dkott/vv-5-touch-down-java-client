@@ -1,9 +1,9 @@
 pack.png
-	size: 256, 2048
+	size: 128, 2048
 	filter: Linear, Linear
 line
-	bounds: 1, 103, 159, 1500
+	bounds: 1, 106, 83, 1825
 test_ship
-	bounds: 1, 1, 100, 100
+	bounds: 1, 4, 100, 100
 white-pixel
-	bounds: 162, 1602, 1, 1
+	bounds: 1, 1, 1, 1
