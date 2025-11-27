@@ -1,13 +1,10 @@
 package com.konivan;
 
 import com.artemis.World;
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.konivan.systems.CameraSystem;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.konivan.static_data.HudSource;
 import com.konivan.systems.GameRender;
 
 import java.util.Objects;
@@ -46,6 +43,8 @@ public class GameService {
 		assetManager.setLoader(AsyncResourceManager.class,
 				new ResourceManagerLoader(externalItemTypes, assetManager.getFileHandleResolver()));
 		assetManager.load("project.dt", AsyncResourceManager.class);
+        assetManager.load(HudSource.landingHUDSkinPath, Skin.class);
+        assetManager.load(HudSource.landingHUDAtlasPath, TextureAtlas.class);
 		assetManager.finishLoading();
 
 		asyncResourceManager = assetManager.get("project.dt", AsyncResourceManager.class);
