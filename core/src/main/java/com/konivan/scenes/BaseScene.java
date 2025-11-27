@@ -9,9 +9,8 @@ import lombok.Getter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
-public class BaseScene {
+public abstract class BaseScene {
 	protected static final GameService gameService = GameService.getInstance();
 
 	@Getter
@@ -54,4 +53,6 @@ public class BaseScene {
             return null;
         }
     }
+
+    public abstract void render();
 }
