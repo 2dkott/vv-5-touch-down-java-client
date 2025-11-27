@@ -3,6 +3,7 @@ package com.konivan;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.konivan.scenes.BaseScene;
 import com.konivan.scenes.TestScene;
 
 /**
@@ -12,11 +13,12 @@ import com.konivan.scenes.TestScene;
 public class Main extends ApplicationAdapter {
 
     private GameService gameService;
+    BaseScene baseScene;
 
     @Override
     public void create() {
         gameService = GameService.getInstance();
-        new TestScene();
+        baseScene = new TestScene();
     }
 
     @Override
@@ -26,6 +28,8 @@ public class Main extends ApplicationAdapter {
 
         gameService.getRender().getViewport().apply();
         gameService.getEngine().process();
+
+        baseScene.render();
     }
 
     @Override
