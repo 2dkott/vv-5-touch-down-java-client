@@ -1,0 +1,16 @@
+{
+"Color": {
+	"RGBA_255_255_255_255": {
+		"r": 1,
+		"g": 1,
+		"b": 1,
+		"a": 1
+	}
+},
+"SliderStyle": {
+	"default-vertical": {
+		"background": "slider-background",
+		"knob": "slider-knobe"
+	}
+}
+}

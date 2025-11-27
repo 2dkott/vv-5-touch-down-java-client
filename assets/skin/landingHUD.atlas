@@ -1,0 +1,20 @@
+
+landingHUD.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+slider-background
+  rotate: false
+  xy: 1, 1
+  size: 37, 741
+  orig: 37, 741
+  offset: 0, 0
+  index: -1
+slider-knobe
+  rotate: false
+  xy: 1, 744
+  size: 262, 40
+  orig: 262, 40
+  offset: 0, 0
+  index: -1
