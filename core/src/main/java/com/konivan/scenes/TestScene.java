@@ -1,45 +1,56 @@
 package com.konivan.scenes;
 
-import com.artemis.Component;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.konivan.game_objects.GameObject;
-import com.konivan.game_objects.MainShipObject;
 
-import com.konivan.scripts.ShipMovement;
+import com.konivan.game_objects.PlayerShipEntity;
 import com.konivan.stage.LandingHUD;
+import com.konivan.static_data.EntityNames;
 import com.konivan.static_data.HudSource;
-import games.rednblack.editor.renderer.utils.ComponentRetriever;
-
-import java.lang.reflect.InvocationTargetException;
+import com.konivan.static_data.ships.ShipSkins;
 
 public class TestScene extends BaseScene {
 
-	private final MainShipObject mainShip;
-	private final LandingHUD hud;
+    private PlayerShipEntity mainShip;
+    private LandingHUD hud;
 
-	public TestScene() {
-		super("TestScene");
+    public TestScene() {
+        super("TestScene");
 
-		this.mainShip = findInScene(MainShipObject.class);
-		mainShip.getComponents().forEach(ComponentRetriever::addMapper);
+        try {
 
-		gameService.getRender().getCameraSystem().setFocus(this.mainShip.getEntity());
+            this.mainShip = buildFromScene(PlayerShipEntity.class, EntityNames.PLAYER_SHIP_NAME_ID);
+            addResoucrecFromLibraryToParent(mainShip.getItemWrapper(), ShipSkins.DEFAULT_SHIP.getGameSkin());
 
-		Skin skin = gameService.getAssetManager().get(HudSource.landingHUDSkinPath);
-		skin.addRegions(gameService.getAssetManager().get(HudSource.landingHUDAtlasPath));
+            gameService.getRender().getCameraSystem().setFocus(this.mainShip.getEntity());
 
-        hud = new LandingHUD(skin, new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), gameService.getSceneLoader().getBatch(),
-				mainShip.getShipMovement());
+            var landingPlatform = buildFromScene(EntityNames.LANDING_ZONE_NAME_ID);
 
-		Gdx.input.setInputProcessor(hud);
-	}
+            var landingSceneObserver = LandingSceneObserver.builder()
+                    .playerShipEntity(this.mainShip)
+                    .landingPlatform(landingPlatform)
+                    .build();
 
-	@Override
-	public void render() {
-		hud.act(Gdx.graphics.getDeltaTime());
-		hud.draw();
-	}
+            Skin skin = gameService.getAssetManager().get(HudSource.landingHUDSkinPath);
+            skin.addRegions(gameService.getAssetManager().get(HudSource.landingHUDAtlasPath));
 
+            hud = new LandingHUD(
+                    skin,
+                    new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()),
+                    gameService.getSceneLoader().getBatch(),
+                    landingSceneObserver);
+
+            Gdx.input.setInputProcessor(hud);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void render() {
+        hud.act(Gdx.graphics.getDeltaTime());
+        hud.draw();
+    }
 }
