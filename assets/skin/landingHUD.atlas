@@ -4,6 +4,13 @@ size: 1024, 1024
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
+WDXLLubrifontSC-Regular
+  rotate: false
+  xy: 1, 744
+  size: 506, 215
+  orig: 506, 215
+  offset: 0, 0
+  index: -1
 slider-background
   rotate: false
   xy: 1, 1
@@ -13,7 +20,7 @@ slider-background
   index: -1
 slider-knobe
   rotate: false
-  xy: 1, 744
+  xy: 509, 980
   size: 262, 40
   orig: 262, 40
   offset: 0, 0

@@ -6,6 +6,7 @@ orig/pack.png
 project.dt
 scenes/MainScene.dt
 scenes/TestScene.dt
+skin/WDXLLubrifontSC-Regular.fnt
 skin/landingHUD.atlas
 skin/landingHUD.json
 skin/landingHUD.png
