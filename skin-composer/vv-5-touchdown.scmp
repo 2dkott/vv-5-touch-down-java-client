@@ -43,7 +43,48 @@ atlasData: {
 			hidden: false
 		}
 	]
-	fontDrawables: []
+	fontDrawables: [
+		{
+			file: D:/Projects/VV-5-TouchDown/VV-5-TouchDown-Client/skin-composer/vv-5-touchdown_data/WDXLLubrifontSC-Regular.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: WDXLLubrifontSC-Regular
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: FONT
+			hidden: false
+		}
+		{
+			file: D:/Projects/VV-5-TouchDown/VV-5-TouchDown-Client/skin-composer/vv-5-touchdown_data/WDXLLubrifontSC-Regular(1).png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: WDXLLubrifontSC-Regular(1)
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: FONT
+			hidden: false
+		}
+	]
 }
 jsonData: {
 	colors: [
@@ -58,7 +99,24 @@ jsonData: {
 			name: RGBA_255_255_255_255
 		}
 	]
-	fonts: []
+	fonts: [
+		{
+			class: com.ray3k.skincomposer.data.FontData
+			name: InfoFont
+			flip: false
+			markupEnabled: false
+			scaling: -1
+			file: D:/Projects/VV-5-TouchDown/VV-5-TouchDown-Client/skin-composer/vv-5-touchdown_data/WDXLLubrifontSC-Regular(1).fnt
+		}
+		{
+			class: com.ray3k.skincomposer.data.FontData
+			name: MainFont
+			flip: false
+			markupEnabled: false
+			scaling: -1
+			file: D:/Projects/VV-5-TouchDown/VV-5-TouchDown-Client/skin-composer/vv-5-touchdown_data/WDXLLubrifontSC-Regular.fnt
+		}
+	]
 	freeTypeFonts: []
 	classStyleMap: {
 		com.badlogic.gdx.scenes.scene2d.ui.SelectBox: [
@@ -371,13 +429,13 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: InfoFont
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColor
 						optional: false
-						value: null
+						value: RGBA_255_255_255_255
 					}
 					focusedFontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -638,13 +696,13 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: MainFont
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColor
 						optional: true
-						value: null
+						value: RGBA_255_255_255_255
 					}
 					background: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
