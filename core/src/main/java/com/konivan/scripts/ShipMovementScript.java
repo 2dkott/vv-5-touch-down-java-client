@@ -6,7 +6,7 @@ import games.rednblack.editor.renderer.components.physics.PhysicsBodyComponent;
 import games.rednblack.editor.renderer.scripts.BasicScript;
 import lombok.Setter;
 
-public class ShipMovement extends BasicScript {
+public class ShipMovementScript extends BasicScript {
 
 	protected ComponentMapper<PhysicsBodyComponent> physicMapper;
 
@@ -23,8 +23,9 @@ public class ShipMovement extends BasicScript {
 
 	@Override
 	public void act(float delta) {
-
-		body.applyForceToCenter(body.getLinearVelocity().scl(brakeForce * -10), true);
+        if (brakeForce > 0f) {
+            body.applyForceToCenter(body.getLinearVelocity().scl(brakeForce * -9.8f), true);
+        }
 	}
 
 	@Override
