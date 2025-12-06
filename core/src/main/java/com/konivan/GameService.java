@@ -21,53 +21,56 @@ import lombok.Getter;
 @Getter
 public class GameService {
 
-	private final AssetManager assetManager;
+    private final AssetManager assetManager;
 
-	private final SceneLoader sceneLoader;
+    private final SceneLoader sceneLoader;
 
-	private final AsyncResourceManager asyncResourceManager;
+    private final AsyncResourceManager asyncResourceManager;
 
-	private final World engine;
+    private final World engine;
 
-	private final ItemWrapper root;
+    private final ItemWrapper root;
 
-	private final GameRender render;
+    private final GameRender render;
 
-	private static GameService INSTANCE;
+    private static GameService INSTANCE;
 
-	private GameService() {
-		assetManager = new AssetManager();
+    private GameService() {
+        assetManager = new AssetManager();
 
-		ExternalTypesConfiguration externalItemTypes = new ExternalTypesConfiguration();
+        ExternalTypesConfiguration externalItemTypes = new ExternalTypesConfiguration();
 
-		assetManager.setLoader(AsyncResourceManager.class,
-				new ResourceManagerLoader(externalItemTypes, assetManager.getFileHandleResolver()));
-		assetManager.load("project.dt", AsyncResourceManager.class);
+        assetManager.setLoader(
+                AsyncResourceManager.class,
+                new ResourceManagerLoader(externalItemTypes, assetManager.getFileHandleResolver()));
+        assetManager.load("project.dt", AsyncResourceManager.class);
         assetManager.load(HudSource.landingHUDSkinPath, Skin.class);
         assetManager.load(HudSource.landingHUDAtlasPath, TextureAtlas.class);
-		assetManager.finishLoading();
+        assetManager.finishLoading();
 
-		asyncResourceManager = assetManager.get("project.dt", AsyncResourceManager.class);
-		SceneConfiguration config = new SceneConfiguration();
+        asyncResourceManager = assetManager.get("project.dt", AsyncResourceManager.class);
+        SceneConfiguration config = new SceneConfiguration();
 
-		render = new GameRender(config);
+        render = new GameRender(config);
 
-		config.setExternalItemTypes(externalItemTypes);
-		config.setResourceRetriever(asyncResourceManager);
+        config.setExternalItemTypes(externalItemTypes);
+        config.setResourceRetriever(asyncResourceManager);
 
-		config.addSystem(new PhysicsSystem());
+        config.addSystem(new PhysicsSystem());
 
-		sceneLoader = new SceneLoader(config);
-		engine = sceneLoader.getEngine();
+        sceneLoader = new SceneLoader(config);
+        engine = sceneLoader.getEngine();
 
-		root = new ItemWrapper(sceneLoader.getRoot(), engine);
-	}
+        ComponentHandler.addAllComponents();
 
-	public static GameService getInstance() {
-		if (Objects.isNull(INSTANCE)) {
-			INSTANCE = new GameService();
-		}
+        root = new ItemWrapper(sceneLoader.getRoot(), engine);
+    }
 
-		return INSTANCE;
-	}
+    public static GameService getInstance() {
+        if (Objects.isNull(INSTANCE)) {
+            INSTANCE = new GameService();
+        }
+
+        return INSTANCE;
+    }
 }
