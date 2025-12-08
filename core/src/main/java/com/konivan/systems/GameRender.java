@@ -35,7 +35,7 @@ public class GameRender {
 		}
 
 		camera = new OrthographicCamera(screenWidth, screenHeight);
-		viewport = new ExtendViewport(2, 4, camera);
+		viewport = new ExtendViewport(8, 16, camera);
 
 		cameraSystem = new CameraSystem(camera);
 		config.addSystem(cameraSystem);

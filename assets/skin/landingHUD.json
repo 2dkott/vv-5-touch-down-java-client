@@ -1,4 +1,18 @@
 {
+"BitmapFont": {
+	"InfoFont": {
+		"file": "WDXLLubrifontSC-Regular.fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"MainFont": {
+		"file": "WDXLLubrifontSC-Regular.fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	}
+},
 "Color": {
 	"RGBA_255_255_255_255": {
 		"r": 1,
@@ -7,10 +21,27 @@
 		"a": 1
 	}
 },
+"LabelStyle": {
+	"default": {
+		"font": "MainFont",
+		"fontColor": "RGBA_255_255_255_255"
+	}
+},
 "SliderStyle": {
 	"default-vertical": {
 		"background": "slider-background",
 		"knob": "slider-knobe"
+	}
+},
+"TextFieldStyle": {
+	"default": {
+		"font": "InfoFont",
+		"fontColor": "RGBA_255_255_255_255"
+	}
+},
+"TextTooltipStyle": {
+	"default": {
+		"label": "default"
 	}
 }
 }
