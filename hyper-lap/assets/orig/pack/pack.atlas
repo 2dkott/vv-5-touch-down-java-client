@@ -1,10 +1,11 @@
 pack.png
 	size: 512, 2048
-	filter: Linear, Linear
 line
 	bounds: 1, 4, 83, 1825
+snow_planetpng
+	bounds: 86, 1139, 10, 300
 test_ship
-	bounds: 86, 1339, 100, 100
+	bounds: 365, 1729, 100, 100
 test_shkp
 	bounds: 86, 1441, 277, 388
 white-pixel

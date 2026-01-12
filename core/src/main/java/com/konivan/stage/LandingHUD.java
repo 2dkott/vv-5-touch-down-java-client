@@ -8,39 +8,46 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.konivan.scenes.LandingSceneObserver;
-import com.konivan.scripts.ShipMovementScript;
 import games.rednblack.editor.renderer.components.TransformComponent;
 
 public class LandingHUD extends Stage {
 
+    private static final float sliderMaxValue = 100f;
+    private static final float sliderMinValue = 0f;
+    private static final float sliderStep = 1f;
+    private static final float sliderMinHeight = 1f;
+    private static final float sliderMinWidth = 1.15f;
+    private static final float sliderPadRight = 0.15f;
     private final LandingSceneObserver observer;
     private final Vector2 platformPosition;
     private TextField altText;
 
-    private float commonPadding;
     public LandingHUD(Skin skin, Viewport viewport, Batch batch, LandingSceneObserver observer) {
         super(viewport, batch);
 
-        commonPadding = (float) viewport.getScreenWidth() / 40;
+        float commonPadding = (float) viewport.getScreenWidth() / 40;
+        float toolsAreaHeight = (float) viewport.getScreenHeight() / 20;
+        float toolsTextScale = (float) viewport.getScreenWidth() /500;
+        float sliderWidth = (float) viewport.getScreenWidth() / 5;
+        float sliderHeight = (float) viewport.getScreenHeight() / 3;
+        float sliderPadBottom = (float) viewport.getScreenHeight() / 5;
 
         this.observer = observer;
-        float sectionWidth = (float) viewport.getScreenWidth() / 4;
 
         Table root = new Table();
         root.setFillParent(true);
         root.setDebug(true);
 
-        float toolsAreaHeight = (float) viewport.getScreenHeight() / 20;
+
         altText = new TextField("", skin);
-        altText.getStyle().font.getData().setScale((float) viewport.getScreenWidth() /500);
+        altText.getStyle().font.getData().setScale(toolsTextScale);
         altText.setDisabled(true);
         Label altTextLabel = new Label("alti: ", skin);
         Table toolsArea = new Table();
+        root.add(toolsArea).height(toolsAreaHeight).left().center().fillX().expandX().colspan(2).row();
         toolsArea.setDebug(true);
         toolsArea.add(altTextLabel).left().center().padLeft(commonPadding).expandY();
-        toolsArea.add(altText).center().expandY();
-
-        root.add(toolsArea).height(toolsAreaHeight).left().expandX().colspan(2).row();
+        toolsArea.add(altText).center().expandY().fillX().expandX();
 
         Table mainArea = new Table();
         mainArea.setDebug(true);
@@ -48,15 +55,15 @@ public class LandingHUD extends Stage {
 
         Table enginArea = new Table();
         enginArea.setDebug(true);
-        Slider slider = new Slider(0, 100, 1, true, skin);
-        slider.setSize((float) viewport.getScreenWidth() / 5, (float) viewport.getScreenHeight() / 3);
+        Slider slider = new Slider(sliderMinValue, sliderMaxValue, sliderStep, true, skin);
+        slider.setSize(sliderWidth, sliderHeight);
 
         root.add(slider)
-            .minHeight(Value.percentHeight(1f))
-            .minWidth(Value.percentWidth(1.15f))
+            .minHeight(Value.percentHeight(sliderMinHeight))
+            .minWidth(Value.percentWidth(sliderMinWidth))
             .bottom()
-            .padRight(Value.percentWidth(0.15f))
-            .padBottom((float) viewport.getScreenHeight() / 5);
+            .padRight(Value.percentWidth(sliderPadRight))
+            .padBottom(sliderPadBottom);
 
         addActor(root);
 
