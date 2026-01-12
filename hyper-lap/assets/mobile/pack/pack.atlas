@@ -1,11 +1,12 @@
 pack.png
-	size: 64, 256
-	filter: Linear, Linear
+	size: 64, 512
 line
-	bounds: 1, 1, 12, 253
+	bounds: 13, 120, 12, 253
+snow_planetpng
+	bounds: 1, 73, 10, 300
 test_ship
-	bounds: 15, 184, 14, 14
+	bounds: 1, 1, 14, 14
 test_shkp
-	bounds: 15, 200, 38, 54
+	bounds: 1, 17, 38, 54
 white-pixel
-	bounds: 55, 253, 1, 1
+	bounds: 13, 117, 1, 1
